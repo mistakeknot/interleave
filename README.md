@@ -8,7 +8,7 @@ Most AI-generated documents waste tokens on parts that are entirely predictable.
 
 interleave formalizes this split. A template script renders all the deterministic sections and emits `<!-- LLM:NAME -->` placeholder markers for the semantic sections. A subagent then fills only the placeholders. The result is the same document at a fraction of the token cost.
 
-This is a spec + library plugin. It defines the pattern, provides a reference implementation, and includes a skill for applying it. No MCP server, no hooks — just the pattern itself.
+This is a spec + library plugin. It defines the pattern, provides a reference implementation, and includes a skill for applying it. No MCP server, no hooks: just the pattern itself.
 
 ## Installation
 
