@@ -18,7 +18,7 @@ This is a spec + library plugin. It defines the pattern, provides a reference im
 
 ## Reference Implementation
 
-`scripts/template-roadmap-md.sh` generates a full `docs/roadmap.md` from `roadmap.json` + beads data. It renders all deterministic sections directly and emits 3 LLM placeholder markers (NEXT_GROUPINGS, MODULE_HIGHLIGHTS, RESEARCH_AGENDA).
+`scripts/template-roadmap-md.sh` generates a full `docs/interverse-roadmap.md` from `roadmap.json` + beads data (legacy compatibility `docs/roadmap.md` when needed). It renders all deterministic sections directly and emits 3 LLM placeholder markers (NEXT_GROUPINGS, MODULE_HIGHLIGHTS, RESEARCH_AGENDA).
 
 ## Placeholder Format
 

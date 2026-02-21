@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2155
-# template-roadmap-md.sh — Generate docs/roadmap.md from roadmap.json + beads data
+# template-roadmap-md.sh — Generate docs/interverse-roadmap.md from roadmap.json + beads data
 # Deterministic sections are rendered directly; 3 LLM placeholder markers are emitted
 # for sections requiring semantic judgment (NEXT_GROUPINGS, MODULE_HIGHLIGHTS, RESEARCH_AGENDA).
 
@@ -9,7 +9,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 ROADMAP_JSON="${1:-$ROOT_DIR/docs/roadmap.json}"
-OUTPUT="$ROOT_DIR/docs/roadmap.md"
+OUTPUT="$ROOT_DIR/docs/interverse-roadmap.md"
 
 # ── Validation ───────────────────────────────────────────────────────────────
 command -v jq >/dev/null 2>&1 || { echo "error: jq is required" >&2; exit 1; }

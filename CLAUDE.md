@@ -21,7 +21,7 @@ find docs/spec -name '*.md' | wc -l   # Should be 6
 
 ## Reference Implementation
 
-`scripts/template-roadmap-md.sh` — generates `docs/roadmap.md` from `roadmap.json` + beads data. Renders all deterministic sections directly; emits 3 LLM placeholder markers (NEXT_GROUPINGS, MODULE_HIGHLIGHTS, RESEARCH_AGENDA).
+`scripts/template-roadmap-md.sh` — generates `docs/interverse-roadmap.md` from `roadmap.json` + beads data. Renders all deterministic sections directly; emits 3 LLM placeholder markers (NEXT_GROUPINGS, MODULE_HIGHLIGHTS, RESEARCH_AGENDA). Legacy compatibility path: `docs/roadmap.md`.
 
 ## Design Decisions (Do Not Re-Ask)
 
