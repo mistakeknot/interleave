@@ -12,6 +12,14 @@ This is a spec + library plugin. It defines the pattern, provides a reference im
 
 ## Installation
 
+First, add the [interagency marketplace](https://github.com/mistakeknot/interagency-marketplace) (one-time setup):
+
+```bash
+/plugin marketplace add mistakeknot/interagency-marketplace
+```
+
+Then install the plugin:
+
 ```bash
 /plugin install interleave
 ```
