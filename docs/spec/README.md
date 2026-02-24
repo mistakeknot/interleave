@@ -6,9 +6,9 @@
 
 ---
 
-## What This Is
+## What this Is
 
-Interleave is a **token-efficient document generation pattern** that separates deterministic content (renderable from structured data) from semantic content (requiring LLM judgment). A template script renders the deterministic skeleton and emits `<!-- LLM:NAME -->` placeholder markers for sections needing intelligence. An orchestrator then fills each placeholder independently, dispatching subagents with only the embedded context — not the full document.
+Interleave is a **token-efficient document generation pattern** that separates deterministic content (renderable from structured data) from semantic content (requiring LLM judgment). A template script renders the deterministic skeleton and emits `<!-- LLM:NAME -->` placeholder markers for sections needing intelligence. An orchestrator then fills each placeholder independently, dispatching subagents with only the embedded context: not the full document.
 
 ## Audience
 
@@ -35,7 +35,7 @@ This spec serves two audiences:
 | [contracts/placeholder.md](contracts/placeholder.md) | The `<!-- LLM:NAME -->` format specification: opening/closing tags, required fields, uniqueness rules. |
 | [contracts/model-routing.md](contracts/model-routing.md) | Model tier selection guidelines per island type, with cost estimation formulas. |
 
-## Conformance Levels
+## Conformance levels
 
 An implementation can claim conformance at three levels:
 
@@ -70,18 +70,18 @@ This spec uses [Semantic Versioning](https://semver.org/):
 
 The spec version is independent of the interleave plugin version.
 
-## Reading Order
+## Reading order
 
 For newcomers:
 
-1. **This README** — understand what the pattern is and conformance levels
-2. **[core/pattern.md](core/pattern.md)** — the pattern definition (the big picture)
-3. **[contracts/placeholder.md](contracts/placeholder.md)** — the placeholder format (the interface)
-4. **[core/analysis.md](core/analysis.md)** — how to classify sections
-5. **[contracts/model-routing.md](contracts/model-routing.md)** — which model for which island
-6. **[core/orchestration.md](core/orchestration.md)** — the filling lifecycle
+1. **This README**: understand what the pattern is and conformance levels
+2. **[core/pattern.md](core/pattern.md)**: the pattern definition (the big picture)
+3. **[contracts/placeholder.md](contracts/placeholder.md)**: the placeholder format (the interface)
+4. **[core/analysis.md](core/analysis.md)**: how to classify sections
+5. **[contracts/model-routing.md](contracts/model-routing.md)**: which model for which island
+6. **[core/orchestration.md](core/orchestration.md)**: the filling lifecycle
 
-## Directory Structure
+## Directory structure
 
 ```
 docs/spec/
