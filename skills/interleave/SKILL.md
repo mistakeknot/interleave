@@ -1,3 +1,7 @@
+---
+description: "Placeholder Filling Orchestrator"
+---
+
 # Interleave — Placeholder Filling Orchestrator
 
 Fill `<!-- LLM:NAME -->` placeholders in a templated markdown document with subagent-generated content.
