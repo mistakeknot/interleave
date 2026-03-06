@@ -9,7 +9,6 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 ROADMAP_JSON="${1:-$ROOT_DIR/docs/roadmap.json}"
-OUTPUT="$ROOT_DIR/docs/interverse-roadmap.md"
 
 # ── Validation ───────────────────────────────────────────────────────────────
 command -v jq >/dev/null 2>&1 || { echo "error: jq is required" >&2; exit 1; }
@@ -19,10 +18,12 @@ if [ ! -f "$ROADMAP_JSON" ]; then
     exit 1
 fi
 
-jq -e '.kind == "interverse-monorepo-roadmap"' "$ROADMAP_JSON" >/dev/null 2>&1 || {
-    echo "error: $ROADMAP_JSON is not a valid monorepo roadmap (missing/wrong .kind)" >&2
+jq -e '.kind | test("-monorepo-roadmap$")' "$ROADMAP_JSON" >/dev/null 2>&1 || {
+    echo "error: $ROADMAP_JSON is not a valid monorepo roadmap (kind must end with -monorepo-roadmap)" >&2
     exit 1
 }
+ROADMAP_PROJECT="${ROADMAP_PROJECT:-$(jq -r '.project // .kind | gsub("-monorepo-roadmap$";"")' "$ROADMAP_JSON")}"
+OUTPUT="${ROADMAP_OUTPUT:-$ROOT_DIR/docs/${ROADMAP_PROJECT}-roadmap.md}"
 
 # ── Beads availability ───────────────────────────────────────────────────────
 BD_AVAILABLE=1
@@ -138,7 +139,7 @@ format_bead_item() {
 
 # ── Header ───────────────────────────────────────────────────────────────────
 cat <<HEADER
-# Interverse Roadmap
+# ${ROADMAP_PROJECT^} Roadmap
 
 **Modules:** $MODULE_COUNT | **Open beads (root tracker):** $OPEN_BEADS | **Blocked (root tracker):** $BLOCKED_COUNT | **Last updated:** $TODAY
 **Structure:** [\`CLAUDE.md\`](../CLAUDE.md)
