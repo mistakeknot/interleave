@@ -7,7 +7,18 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+# Find monorepo root: walk up to find .beads/ (monorepo marker), fall back to git root
+ROOT_DIR="$SCRIPT_DIR"
+while [ "$ROOT_DIR" != "/" ]; do
+    [ -d "$ROOT_DIR/.beads" ] && break
+    ROOT_DIR="$(dirname "$ROOT_DIR")"
+done
+if [ "$ROOT_DIR" = "/" ]; then
+    # No .beads/ found — fall back to git root
+    ROOT_DIR="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel 2>/dev/null)" || {
+        echo "error: could not find monorepo root (no .beads/ dir or git repo)" >&2; exit 1;
+    }
+fi
 ROADMAP_JSON="${1:-$ROOT_DIR/docs/roadmap.json}"
 
 # ── Validation ───────────────────────────────────────────────────────────────
@@ -92,7 +103,7 @@ format_bead_item() {
     if [ -n "$module" ]; then
         display_title="$(echo "$title" | sed 's/^\[[^]]*\][[:space:]]*//')"
     else
-        module="interverse"
+        module="$ROADMAP_PROJECT"
         display_title="$title"
     fi
 
@@ -335,7 +346,7 @@ if [ "$BD_AVAILABLE" -eq 1 ]; then
             item_id="$(jq -r '.id' <<<"$item")"
             item_title="$(jq -r '.title' <<<"$item")"
             item_mod="$(echo "$item_title" | sed -n 's/^\[\([^]]*\)\].*/\1/p')"
-            [ -z "$item_mod" ] && item_mod="interverse"
+            [ -z "$item_mod" ] && item_mod="$ROADMAP_PROJECT"
 
             while IFS= read -r dep_id; do
                 [ -z "$dep_id" ] && continue
@@ -343,7 +354,7 @@ if [ "$BD_AVAILABLE" -eq 1 ]; then
                 dep_title="$(jq -r --arg did "$dep_id" '.[] | select(.id == $did) | .title' "$TMP_DIR/now.json" "$TMP_DIR/p2.json" "$TMP_DIR/later.json" 2>/dev/null | head -1)"
                 [ -z "$dep_title" ] && continue
                 dep_mod="$(echo "$dep_title" | sed -n 's/^\[\([^]]*\)\].*/\1/p')"
-                [ -z "$dep_mod" ] && dep_mod="interverse"
+                [ -z "$dep_mod" ] && dep_mod="$ROADMAP_PROJECT"
 
                 if [ "$item_mod" != "$dep_mod" ]; then
                     entry="- **$item_id** ($item_mod) blocked by **$dep_id** ($dep_mod)"
