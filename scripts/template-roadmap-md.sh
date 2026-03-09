@@ -7,17 +7,18 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# Find monorepo root: walk up to find .beads/ (monorepo marker), fall back to git root
-ROOT_DIR="$SCRIPT_DIR"
-while [ "$ROOT_DIR" != "/" ]; do
-    [ -d "$ROOT_DIR/.beads" ] && break
-    ROOT_DIR="$(dirname "$ROOT_DIR")"
-done
-if [ "$ROOT_DIR" = "/" ]; then
-    # No .beads/ found — fall back to git root
-    ROOT_DIR="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel 2>/dev/null)" || {
-        echo "error: could not find monorepo root (no .beads/ dir or git repo)" >&2; exit 1;
-    }
+# Find project root: prefer git root, fall back to walking up for .beads/ marker
+ROOT_DIR="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel 2>/dev/null)" || ROOT_DIR=""
+if [ -z "$ROOT_DIR" ]; then
+    # No git repo — walk up to find .beads/ (monorepo marker)
+    ROOT_DIR="$SCRIPT_DIR"
+    while [ "$ROOT_DIR" != "/" ]; do
+        [ -d "$ROOT_DIR/.beads" ] && break
+        ROOT_DIR="$(dirname "$ROOT_DIR")"
+    done
+    if [ "$ROOT_DIR" = "/" ]; then
+        echo "error: could not find project root (no git repo or .beads/ dir)" >&2; exit 1;
+    fi
 fi
 ROADMAP_JSON="${1:-$ROOT_DIR/docs/roadmap.json}"
 
