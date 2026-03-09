@@ -1,6 +1,6 @@
 {
   "name": "interleave",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Deterministic Skeleton with LLM Islands — token-efficient document generation via template-then-fill.",
   "author": {
     "name": "MK",
