@@ -1,7 +1,7 @@
 {
   "name": "interleave",
   "version": "0.1.2",
-  "description": "Deterministic Skeleton with LLM Islands — token-efficient document generation via template-then-fill.",
+  "description": "Deterministic Skeleton with LLM Islands \u2014 token-efficient document generation via template-then-fill.",
   "author": {
     "name": "MK",
     "email": "mistakeknot@vibeguider.org"
@@ -18,5 +18,8 @@
   ],
   "skills": [
     "./skills/interleave"
+  ],
+  "peerDependencies": [
+    "interpath"
   ]
 }
