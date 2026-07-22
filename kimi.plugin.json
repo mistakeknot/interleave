@@ -1,0 +1,20 @@
+{
+  "name": "interleave",
+  "version": "0.1.2",
+  "description": "Deterministic Skeleton with LLM Islands — token-efficient document generation via template-then-fill.",
+  "license": "MIT",
+  "keywords": [
+    "interleave",
+    "token-efficiency",
+    "template",
+    "skeleton",
+    "deterministic",
+    "islands"
+  ],
+  "author": "MK",
+  "interface": {
+    "displayName": "interleave",
+    "shortDescription": "Deterministic Skeleton with LLM Islands — token-efficient document generation via template-then-fill."
+  },
+  "skills": "./skills/"
+}
